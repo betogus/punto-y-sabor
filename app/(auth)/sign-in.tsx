@@ -3,6 +3,7 @@ import React from 'react'
 import {Link, router} from "expo-router";
 import CustomInput from "@/components/CustomInput";
 import CustomButton from "@/components/CustomButton";
+import {signIn} from "@/lib/appwrite";
 
 const SignIn = () => {
 
@@ -10,10 +11,12 @@ const SignIn = () => {
     const [form, setForm] = React.useState({email: '', password: ''});
 
     const submit: any = async () => {
-        if (!form.email || !form.password) return Alert.alert("Error", 'Please enter a valid email and password');
+        const {email, password} = form;
+        if (!email || !password) return Alert.alert("Error", 'Please enter a valid email and password');
         setIsSubmitting(true);
+
         try {
-            Alert.alert('Success', 'User signed in successfully.');
+            await signIn({email, password});
             router.replace('/');
         } catch (error: any) {
             Alert.alert('Error', error.message)
@@ -39,7 +42,7 @@ const SignIn = () => {
                 secureTextEntry={true}
             />
             <CustomButton
-                title="Sign up"
+                title="Sign in"
                 isLoading={isSubmitting}
                 onPress={submit}
             />
