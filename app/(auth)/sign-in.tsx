@@ -5,6 +5,7 @@ import CustomInput from "@/components/CustomInput";
 import CustomButton from "@/components/CustomButton";
 import {signIn} from "@/lib/appwrite";
 import * as Sentry from '@sentry/react-native';
+import useAuthStore from "@/store/auth.store";
 
 const SignIn = () => {
 
@@ -18,6 +19,7 @@ const SignIn = () => {
 
         try {
             await signIn({email, password});
+            await useAuthStore.getState().fetchAuthenticatedUser();
             router.replace('/');
         } catch (error: any) {
             Alert.alert('Error', error.message)
