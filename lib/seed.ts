@@ -1,6 +1,8 @@
 import { ID } from "react-native-appwrite";
-import { appwriteConfig, databases, storage } from '@/lib/appwrite'
+import { appwriteConfig, databases, storage } from "./appwrite";
 import dummyData from "./data";
+import * as FileSystem from 'expo-file-system';
+import { Platform } from 'react-native';
 
 interface Category {
     name: string;
@@ -51,21 +53,27 @@ async function clearStorage(): Promise<void> {
     const list = await storage.listFiles(appwriteConfig.bucketId);
 
     await Promise.all(
-        list.files.map((file: { $id: any; }) =>
+        list.files.map((file) =>
             storage.deleteFile(appwriteConfig.bucketId, file.$id)
         )
     );
 }
 
+
 async function uploadImageToStorage(imageUrl: string) {
-    const response = await fetch(imageUrl);
-    const blob = await response.blob();
+    const fileName = imageUrl.split("/").pop() || `file-${Date.now()}.png`;
+    const localUri = FileSystem.cacheDirectory + fileName;
+
+    const { uri } = await FileSystem.downloadAsync(imageUrl, localUri);
+
+    const fileInfo = await FileSystem.getInfoAsync(uri);
+    if (!fileInfo.exists) throw new Error("File not found after download");
 
     const fileObj = {
-        name: imageUrl.split("/").pop() || `file-${Date.now()}.jpg`,
-        type: blob.type,
-        size: blob.size,
-        uri: imageUrl,
+        uri: uri,
+        name: fileName,
+        type: 'image/png',
+        size: fileInfo.size,
     };
 
     const file = await storage.createFile(
@@ -76,6 +84,7 @@ async function uploadImageToStorage(imageUrl: string) {
 
     return storage.getFileViewURL(appwriteConfig.bucketId, file.$id);
 }
+
 
 async function seed(): Promise<void> {
     // 1. Clear all

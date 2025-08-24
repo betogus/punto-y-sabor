@@ -1,9 +1,10 @@
 import { Account, Avatars, Client, Databases, ID, Storage, Query } from 'react-native-appwrite';
-import { CreateUserParams, SignInParams } from "@/type";
+import {CreateUserParams, GetMenuParams, SignInParams} from "@/type";
+import data from "@/lib/data";
 
 export const appwriteConfig = {
     endpoint: process.env.EXPO_PUBLIC_APPWRITE_ENDPOINT!,
-    platform: "com.android.puntoysabor", // 👈 IMPORTANTE
+    platform: "com.android.puntoysabor",
     projectId: process.env.EXPO_PUBLIC_APPWRITE_PROJECT_ID!,
     databaseId: "689e6bdb003860912805",
     bucketId: "68a661200036a0303bc1",
@@ -13,7 +14,7 @@ export const appwriteConfig = {
     customizationsCollectionId: "68a65de2001c8ddef094",
     menuCustomizationCollectionId: "68a65e7f001a1748ee15"
 };
-
+console.log("Appwrite endpoint:", appwriteConfig.endpoint);
 export const client = new Client();
 
 client
@@ -70,6 +71,40 @@ export const getCurrentUser = async () => {
         return currentUser.documents[0];
     } catch (e) {
         console.log(e);
+        throw new Error(e as string);
+    }
+
+}
+
+export const getMenu = async ({category, query}: GetMenuParams) => {
+    try {
+        const queries: string[] = [];
+        if (category) queries.push(Query.equal('categories', category));
+
+        if (query) {
+            queries.push(Query.search('name', query)); // Esto busca coincidencias parciales sin importar mayúsculas/minúsculas
+        }
+
+        const menus = await databases.listDocuments(
+            appwriteConfig.databaseId,
+            appwriteConfig.menuCollectionId,
+            queries
+        )
+
+        return menus.documents;
+    } catch(e) {
+        throw new Error(e as string);
+    }
+}
+
+export const getCategories = async () => {
+    try {
+        const categories = await databases.listDocuments(
+            appwriteConfig.databaseId,
+            appwriteConfig.categoriesCollectionId
+        )
+        return categories.documents;
+    } catch (e) {
         throw new Error(e as string);
     }
 }
