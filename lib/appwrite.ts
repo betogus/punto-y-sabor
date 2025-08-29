@@ -12,7 +12,8 @@ export const appwriteConfig = {
     categoriesCollectionId: "68a6598c002b7acbf941",
     menuCollectionId: "68a65b8a001ff59a7976",
     customizationsCollectionId: "68a65de2001c8ddef094",
-    menuCustomizationCollectionId: "68a65e7f001a1748ee15"
+    menuCustomizationCollectionId: "68a65e7f001a1748ee15",
+    subCategoriesCollectionId: "68acbc84002725207b84"
 };
 console.log("Appwrite endpoint:", appwriteConfig.endpoint);
 export const client = new Client();

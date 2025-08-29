@@ -2,22 +2,29 @@ import {View, Text, Image, TouchableOpacity, Platform} from 'react-native'
 import React from 'react'
 import {MenuItem} from "@/type";
 import {useCartStore} from "@/store/cart.store";
+import {Ionicons} from '@expo/vector-icons'
 
-const MenuCard = ({ item: {$id, image_url, name, price}} : {item: MenuItem}) => {
+const MenuCard = ({ item: {$id, image_url, name, price, rating}} : {item: MenuItem}) => {
 
     const {addItem} = useCartStore();
 
     return (
         <TouchableOpacity className="menu-card" style={Platform.OS === 'android' ? { elevation: 10, shadowColor: '#878787'} : {}}>
             <Image
+                className="menu-card__image"
                 source={{ uri: image_url }}
-                style={{ width: 128, height: 128 }}
+                style={{ width: "100%", height: 128, objectFit: "cover" }}
             />
-            <Text className="text-center base-bold text-dark-100 mb-2" numberOfLines={1}>{name}</Text>
-            <Text className="body-regular text-gray-200 mb-4">from ${price}</Text>
-            <TouchableOpacity onPress={() => addItem({id: $id, name, price, image_url, customizations: []})}>
-                <Text className="paragraph-bold text-primary">Add to Cart +</Text>
-            </TouchableOpacity>
+            <View className="menu-card__info">
+                <Text className="base-bold font-bold text-dark-100 mb-2" numberOfLines={1}>{name}</Text>
+                <View className="flex-row justify-between">
+                    <Text className="paragraph-bold text-gray-200 mb-4 text-lg">${price}</Text>
+                    <View className="flex flex-row gap-2">
+                        <Ionicons name="star" size={24} color="#ffcd03" />
+                        <Text className="paragraph-bold text-lg">{rating}</Text>
+                    </View>
+                </View>
+            </View>
         </TouchableOpacity>
     )
 }
