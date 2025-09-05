@@ -1,4 +1,4 @@
-import dummyData from "@/lib/data";
+import dummyData from "@/services/appwrite/data";
 
 const dummyData2 = {
     categories: [
@@ -38,7 +38,21 @@ const dummyData2 = {
             subcategory: "Empanadas",
             tags: ["Tradicional"],
             isAvailable: true,
-            popularityScore: 85
+            popularityScore: 85,
+            preparationTime: 25,
+            comboOptions: [
+                {
+                    name: "Salsa chimichurri",
+                    imageUrl: "https://ejemplo.com/salsa.jpg",
+                    additionalPrice: 150
+                },
+                {
+                    name: "Ensalada",
+                    imageUrl: "https://ejemplo.com/ensalada.jpg",
+                    additionalPrice: 200
+                }
+            ],
+            relatedItems: ["Milanesa", "Hamburguesa"]
         },
         {
             name: "Milanesa",
@@ -51,7 +65,20 @@ const dummyData2 = {
             category: "Platos principales",
             tags: ["Clásico", "Favorito"],
             isAvailable: true,
-            popularityScore: 95
+            popularityScore: 95,
+            comboOptions: [
+                {
+                    name: "Papas fritas",
+                    imageUrl: "https://ejemplo.com/papas.jpg",
+                    additionalPrice: 250
+                },
+                {
+                    name: "Ensalada",
+                    imageUrl: "https://ejemplo.com/ensalada.jpg",
+                    additionalPrice: 200
+                }
+            ],
+            relatedItems: ["Hamburguesa", "Empanadas criollas"]
         },
         {
             name: "Cheesecake de frutos rojos",
@@ -64,7 +91,8 @@ const dummyData2 = {
             category: "Postres",
             tags: ["Postre", "Popular"],
             isAvailable: false,
-            popularityScore: 90
+            popularityScore: 90,
+            relatedItems: ["Limonada menta y jengibre"]
         },
         {
             name: "Limonada menta y jengibre",
@@ -77,7 +105,8 @@ const dummyData2 = {
             category: "Bebidas",
             tags: ["Refrescante", "Verano"],
             isAvailable: true,
-            popularityScore: 70
+            popularityScore: 70,
+            relatedItems: ["Cheesecake de frutos rojos"]
         },
         {
             name: "Hamburguesa",
@@ -90,7 +119,20 @@ const dummyData2 = {
             category: "Platos principales",
             tags: ["Saludable", "Vegetariano"],
             isAvailable: true,
-            popularityScore: 88
+            popularityScore: 88,
+            comboOptions: [
+                {
+                    name: "Papas fritas",
+                    imageUrl: "https://ejemplo.com/papas.jpg",
+                    additionalPrice: 250
+                },
+                {
+                    name: "Bebida",
+                    imageUrl: "https://ejemplo.com/bebida.jpg",
+                    additionalPrice: 200
+                }
+            ],
+            relatedItems: ["Milanesa", "Empanadas criollas"]
         }
     ]
 }

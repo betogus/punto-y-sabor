@@ -1,5 +1,5 @@
 import { ID } from "react-native-appwrite";
-import { appwriteConfig, databases, storage } from "./appwrite";
+import { appwriteConfig, databases, storage } from "../../lib/appwrite";
 import dummyData from "./data";
 import * as FileSystem from 'expo-file-system';
 import { Platform } from 'react-native';

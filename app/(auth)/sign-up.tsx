@@ -3,7 +3,7 @@ import React from 'react'
 import {Link, router} from "expo-router";
 import CustomInput from "@/components/CustomInput";
 import CustomButton from "@/components/CustomButton";
-import {createUser} from "@/lib/appwrite";
+import {createUser} from "@/services/appwrite";
 
 const SignUp = () => {
     const [isSubmitting, setIsSubmitting] = React.useState(false);
