@@ -5,7 +5,7 @@ import cn from "clsx";
 
 const CustomButton = ({onPress, title="Click me", style, textStyle, leftIcon, isLoading = false} : CustomButtonProps) => {
     return (
-        <TouchableOpacity className={cn('custom-btn')} onPress={onPress}>
+        <TouchableOpacity className={cn('custom-btn')} onPress={onPress} >
             {leftIcon}
             <View className='flex-center flex-row'>
                 {isLoading ? (

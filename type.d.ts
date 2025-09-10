@@ -1,24 +1,14 @@
 import { Models } from "react-native-appwrite";
+import {ComboOption} from "@/type/MenuDetail";
 
 export interface MenuItem  {
     $id: string;
     name: string;
-    popularity_score: number;
+    popularity_score?: number;
     rating: number;
     image_url: string;
     price: number;
 }
-
-export interface MenuDetail {
-    $id: string;
-    name: string;
-    description: string;
-    price: number;
-    image_url: string;
-    rating: number;
-
-}
-
 
 
 export interface Category extends Models.Document {
@@ -39,21 +29,13 @@ export interface CartCustomization {
     type: string;
 }
 
-export interface CartItemType {
-    id: string; // menu item id
-    name: string;
-    price: number;
-    image_url: string;
-    quantity: number;
-    customizations?: CartCustomization[];
-}
 
 export interface CartStore {
     items: CartItem[];
     addItem: (item: Omit<CartItem, "quantity">) => void;
-    removeItem: (id: string, customizations: CartCustomization[]) => void;
-    increaseQty: (id: string, customizations: CartCustomization[]) => void;
-    decreaseQty: (id: string, customizations: CartCustomization[]) => void;
+    removeItem: (id: string, customizations: CartItemType[]) => void;
+    increaseQty: (id: string, customizations: CartItemType[]) => void;
+    decreaseQty: (id: string, customizations: CartItemType[]) => void;
     clearCart: () => void;
     getTotalItems: () => number;
     getTotalPrice: () => number;

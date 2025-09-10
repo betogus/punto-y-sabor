@@ -12,6 +12,7 @@ export const appwriteConfig = {
     customizationsCollectionId: "68a65de2001c8ddef094",
     menuCustomizationCollectionId: "68a65e7f001a1748ee15",
     subCategoriesCollectionId: "68acbc84002725207b84",
+    relatedItemsCollectionId: "related_items"
 };
 
 export const client = new Client()

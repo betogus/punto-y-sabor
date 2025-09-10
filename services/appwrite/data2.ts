@@ -3,28 +3,34 @@ import dummyData from "@/services/appwrite/data";
 const dummyData2 = {
     categories: [
         {name: "Entradas", image_url: "https://nyc.cloud.appwrite.io/v1/storage/buckets/68a661200036a0303bc1/files/68adfe29001341654856/view?project=689e04bd0017a558b83e&mode=admin"},
+
         {name: "Platos principales", image_url: "https://nyc.cloud.appwrite.io/v1/storage/buckets/68a661200036a0303bc1/files/68adfe830038d1d836cb/view?project=689e04bd0017a558b83e&mode=admin"},
+
         {name: "Acompañamiento", image_url: "https://nyc.cloud.appwrite.io/v1/storage/buckets/68a661200036a0303bc1/files/68adfeac001b5ae0d40e/view?project=689e04bd0017a558b83e&mode=admin"},
+
         {name: "Meriendas", image_url: "https://nyc.cloud.appwrite.io/v1/storage/buckets/68a661200036a0303bc1/files/68adfeea000c5dd14e1e/view?project=689e04bd0017a558b83e&mode=admin"},
+
         {name: "Postres", image_url: "https://nyc.cloud.appwrite.io/v1/storage/buckets/68a661200036a0303bc1/files/68adff0d0013e3cc77e0/view?project=689e04bd0017a558b83e&mode=admin"},
+
         {name: "Bebidas", image_url: "https://nyc.cloud.appwrite.io/v1/storage/buckets/68a661200036a0303bc1/files/68adff2c00116d5d886b/view?project=689e04bd0017a558b83e&mode=admin"},
+
     ],
     subCategories: [
-        {name: "Empanadas", category: "Platos principales"},
-        {name: "Lomos", category: "Platos principales"},
-        {name: "Carnes", category: "Platos principales"},
-        {name: "Pasta", category: "Platos principales"},
-        {name: "Pizza", category: "Platos principales"},
-        {name: "Parrilla", category: "Platos principales"},
-        {name: "Picadas", category: "Entradas"},
-        {name: "Tapas", category: "Entradas"},
-        {name: "Sin alcohol", category: "Bebidas"},
-        {name: "Tragos", category: "Bebidas"},
-        {name: "Cervezas", category: "Bebidas"},
-        {name: "Vinos", category: "Bebidas"},
-        {name: "Tortas", category: "Postres"},
-        {name: "Helados", category: "Postres"},
-        {name: "Postres clásicos", category: "Postres"},
+        {name: "Empanadas", category: "Platos principales"}, //68af55875bd31df5ab7f
+        {name: "Lomos", category: "Platos principales"}, //68af55875bd56e9e1961
+        {name: "Carnes", category: "Platos principales"}, //68af55875bd5d80b25e3
+        {name: "Pasta", category: "Platos principales"}, //68af55875bd62615d4b2
+        {name: "Pizza", category: "Platos principales"}, //68af55875bd6782d2e14
+        {name: "Parrilla", category: "Platos principales"}, //68af55875bd6caa5b82d
+        {name: "Picadas", category: "Entradas"}, //68af55875bd708b178b4
+        {name: "Tapas", category: "Entradas"}, //68af55875bd750de1522
+        {name: "Sin alcohol", category: "Bebidas"}, //68af55875bd7aec2907d
+        {name: "Tragos", category: "Bebidas"}, //68af55875bd7ed398151
+        {name: "Cervezas", category: "Bebidas"}, //68af55875bd83f1881c6
+        {name: "Vinos", category: "Bebidas"}, //68af55875bd87e4f201c
+        {name: "Tortas", category: "Postres"}, //68af55875bd8c6c0bd4b
+        {name: "Helados", category: "Postres"}, //68af55875bd9059b4062
+        {name: "Postres clásicos", category: "Postres"}, //68af55875bd9521ef621
     ],
     menu: [
         {
@@ -66,6 +72,7 @@ const dummyData2 = {
             tags: ["Clásico", "Favorito"],
             isAvailable: true,
             popularityScore: 95,
+            preparationTime: 15,
             comboOptions: [
                 {
                     name: "Papas fritas",
@@ -115,11 +122,12 @@ const dummyData2 = {
             imageUrl: "https://nyc.cloud.appwrite.io/v1/storage/buckets/68a661200036a0303bc1/files/68ae05bd001c6e8a3e82/view?project=689e04bd0017a558b83e&mode=admin",
             ingredients: ["Carne", "Pan", "Papas", "Queso", "Tomate", "Lechuga"],
             rating: 4.6,
-            subcategory: "Vegano",
+            subcategory: "Lomos",
             category: "Platos principales",
             tags: ["Saludable", "Vegetariano"],
             isAvailable: true,
             popularityScore: 88,
+            preparationTime: 20,
             comboOptions: [
                 {
                     name: "Papas fritas",

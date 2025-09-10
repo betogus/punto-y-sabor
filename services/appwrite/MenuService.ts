@@ -1,6 +1,7 @@
 import {Query} from "react-native-appwrite";
-import {GetMenuParams, MenuDetail, MenuItem} from "@/type";
+import {GetMenuParams, MenuItem} from "@/type";
 import {appwriteConfig, databases} from "@/services/appwrite/AppwriteClient";
+import {MenuDetail, transformMenuItem} from "@/type/MenuDetail";
 
 
 
@@ -18,22 +19,14 @@ export const getAllMenus = async ({ category, query }: GetMenuParams) => {
     return menus.documents;
 };
 
-export const getMenuById = async ({ id }: { id: string }): Promise<MenuDetail | null> => {
+export const getMenuDetailById = async ({ id }: { id: string }): Promise<MenuDetail | null> => {
     try {
         const doc = await databases.getDocument(
             appwriteConfig.databaseId,
             appwriteConfig.menuCollectionId,
             id
         );
-
-        return {
-            $id: doc.$id,
-            name: doc.name,
-            description: doc.description,
-            price: doc.price,
-            image_url: doc.image_url,
-            rating: doc.rating,
-        };
+        return transformMenuItem(doc);
     } catch (error) {
         console.error("Error al obtener documento:", error);
         return null;

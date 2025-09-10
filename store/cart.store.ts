@@ -1,5 +1,6 @@
 import { CartCustomization, CartStore } from "@/type";
 import { create } from "zustand";
+import {ComboOption} from "@/type/MenuDetail";
 
 function areCustomizationsEqual(
     a: CartCustomization[] = [],
@@ -85,11 +86,11 @@ export const useCartStore = create<CartStore>((set, get) => ({
     getTotalPrice: () =>
         get().items.reduce((total, item) => {
             const base = item.price;
-            const customPrice =
-                item.customizations?.reduce(
-                    (s: number, c: CartCustomization) => s + c.price,
+            const comboPrice =
+                item.selectedCombos?.reduce(
+                    (s: number, c: ComboOption) => s + c.price,
                     0
                 ) ?? 0;
-            return total + item.quantity * (base + customPrice);
+            return total + item.quantity * (base + comboPrice);
         }, 0),
 }));
