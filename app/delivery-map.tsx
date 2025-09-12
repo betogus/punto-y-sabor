@@ -6,12 +6,12 @@ import {
     TouchableOpacity,
     Alert,
     Dimensions,
-    SafeAreaView,
     StatusBar
 } from 'react-native';
 import { Stack, router } from 'expo-router';
 import MapView, { Marker, Polyline } from 'react-native-maps';
 import * as Location from 'expo-location';
+import {SafeAreaView} from "react-native-safe-area-context";
 
 const { width, height } = Dimensions.get('window');
 
@@ -27,7 +27,7 @@ const DeliveryMap = () => {
     const restaurantLocation = {
         latitude: -31.4201,
         longitude: -64.1888,
-        title: "Pizza Express",
+        title: "Punto y Sabor",
         address: "Av. Colón 1234, Córdoba"
     };
 
@@ -194,43 +194,7 @@ const DeliveryMap = () => {
 
     return (
         <>
-            {/* Configurar header de la pantalla */}
-            <Stack.Screen
-                options={{
-                    title: `Pedido #${orderNumber}`,
-                    headerStyle: { backgroundColor: statusInfo.color },
-                    headerTintColor: 'white',
-                    headerTitleStyle: { fontWeight: 'bold' },
-                    headerLeft: () => (
-                        <TouchableOpacity
-                            onPress={() => router.back()}
-                            style={{ marginLeft: 10 }}
-                        >
-                            <Text style={{ color: 'white', fontSize: 16 }}>← Volver</Text>
-                        </TouchableOpacity>
-                    )
-                }}
-            />
-
             <SafeAreaView style={styles.container}>
-                <StatusBar barStyle="light-content" backgroundColor={statusInfo.color} />
-
-                {/* Header con estado del pedido */}
-                <View style={[styles.header, { backgroundColor: statusInfo.color }]}>
-                    <View style={styles.headerContent}>
-                        <View style={styles.statusContainer}>
-                            <Text style={styles.statusIcon}>{statusInfo.icon}</Text>
-                            <View>
-                                <Text style={styles.statusText}>{statusInfo.text}</Text>
-                                <Text style={styles.statusDescription}>{statusInfo.description}</Text>
-                            </View>
-                        </View>
-                        {estimatedTime > 0 && (
-                            <Text style={styles.timeText}>⏱️ {estimatedTime} min aprox.</Text>
-                        )}
-                    </View>
-                </View>
-
                 {/* Mapa */}
                 <MapView
                     ref={mapRef}
@@ -293,6 +257,13 @@ const DeliveryMap = () => {
 
                 {/* Botones de control */}
                 <View style={styles.controls}>
+
+                    <TouchableOpacity
+                    style={styles.controlButton}
+
+                    >
+                        <Text> Obtener mi ubicación actual</Text>
+                    </TouchableOpacity>
                     <TouchableOpacity
                         style={styles.controlButton}
                         onPress={fitToMarkers}

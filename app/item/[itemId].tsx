@@ -120,7 +120,6 @@ const ProductDetail = () => {
             totalPrice: totalPrice * quantity,
             image_url: data.image_url
         };
-        console.log(cartItem);
         addItem(cartItem);
         setAddedItem(cartItem);
         setShowModal(true);

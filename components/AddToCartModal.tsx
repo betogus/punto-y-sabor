@@ -217,7 +217,7 @@ const AddToCartModal: React.FC<AddToCartModalProps> = ({
                                         flexDirection: 'row',
                                         justifyContent: 'space-between',
                                         alignItems: 'center',
-                                        marginBottom: 8
+                                        marginBottom: 8,
                                     }}>
                                         <View style={{
                                             flexDirection: 'row',
@@ -228,15 +228,17 @@ const AddToCartModal: React.FC<AddToCartModalProps> = ({
                                                 marginLeft: 8,
                                                 fontSize: 14,
                                                 color: '#333',
-                                                flex: 1
+
                                             }}>
                                                 {combo.name}
                                             </Text>
                                         </View>
                                         <Text style={{
                                             fontSize: 14,
+                                            flex: 1,
+                                            textAlign: "right",
                                             fontWeight: '600',
-                                            color: colors.primary
+                                            color: colors.primary,
                                         }}>
                                             +${combo.price.toFixed(2)}
                                         </Text>
