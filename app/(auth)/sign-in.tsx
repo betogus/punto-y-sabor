@@ -6,6 +6,7 @@ import CustomButton from "@/components/CustomButton";
 import * as Sentry from '@sentry/react-native';
 import useAuthStore from "@/store/auth.store";
 import {signIn} from "@/services/appwrite";
+import {ROUTES} from "@/src/routes";
 
 const SignIn = () => {
 
@@ -20,7 +21,7 @@ const SignIn = () => {
         try {
             await signIn({email, password});
             await useAuthStore.getState().fetchAuthenticatedUser();
-            router.replace('/');
+            router.replace(ROUTES.home);
         } catch (error: any) {
             Alert.alert('Error', error.message)
             Sentry.captureEvent(error);
@@ -54,7 +55,7 @@ const SignIn = () => {
                 <Text className='base-regular text-gray-100'>
                     Don´t have an account?
                 </Text>
-                <Link href="/sign-up" className="base-bold text-primary">
+                <Link href={ROUTES.signUp} className="base-bold text-primary">
                     Sign up
                 </Link>
             </View>

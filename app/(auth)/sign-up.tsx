@@ -4,6 +4,7 @@ import {Link, router} from "expo-router";
 import CustomInput from "@/components/CustomInput";
 import CustomButton from "@/components/CustomButton";
 import {createUser} from "@/services/appwrite";
+import {ROUTES} from "@/src/routes";
 
 const SignUp = () => {
     const [isSubmitting, setIsSubmitting] = React.useState(false);
@@ -56,7 +57,7 @@ const SignUp = () => {
                 <Text className='base-regular text-gray-100'>
                     Already have an account?
                 </Text>
-                <Link href="/sign-in" className="base-bold text-primary">
+                <Link href={ROUTES.signIn} className="base-bold text-primary">
                     Sign in
                 </Link>
             </View>

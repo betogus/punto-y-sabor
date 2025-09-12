@@ -1,5 +1,6 @@
 import { Models } from "react-native-appwrite";
 import {ComboOption} from "@/type/MenuDetail";
+import {CartItemType} from "@/type/CartType";
 
 export interface MenuItem  {
     $id: string;
@@ -32,10 +33,10 @@ export interface CartCustomization {
 
 export interface CartStore {
     items: CartItem[];
-    addItem: (item: Omit<CartItem, "quantity">) => void;
-    removeItem: (id: string, customizations: CartItemType[]) => void;
-    increaseQty: (id: string, customizations: CartItemType[]) => void;
-    decreaseQty: (id: string, customizations: CartItemType[]) => void;
+    addItem: (item: CartItemType) => void;
+    removeItem: (id: string, selectedCombos: ComboOption[]) => void;
+    increaseQty: (id: string, selectedCombos: ComboOption[]) => void;
+    decreaseQty: (id: string, selectedCombos: ComboOption[]) => void;
     clearCart: () => void;
     getTotalItems: () => number;
     getTotalPrice: () => number;

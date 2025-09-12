@@ -4,6 +4,7 @@ import { MenuItem } from "@/type";
 import { useCartStore } from "@/store/cart.store";
 import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
+import {ROUTES} from "@/src/routes";
 
 const MenuCard = ({ item: { $id, image_url, name, price, rating }, }: { item: MenuItem;}) => {
     const { addItem } = useCartStore();
@@ -13,7 +14,7 @@ const MenuCard = ({ item: { $id, image_url, name, price, rating }, }: { item: Me
         <TouchableOpacity
             className="menu-card"
             style={ Platform.OS === "android" ? { elevation: 10, shadowColor: "#878787" } : {}   }
-            onPress={() => router.push(`/item/${$id}`)}
+            onPress={() => router.push(ROUTES.item($id) as any)}
         >
             <Image
                 className="menu-card__image"

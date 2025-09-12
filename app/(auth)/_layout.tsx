@@ -5,12 +5,13 @@ import {Redirect, Slot} from "expo-router";
 import ScrollView = Animated.ScrollView;
 import {images} from "@/constants";
 import useAuthStore from "@/store/auth.store";
+import {ROUTES} from "@/src/routes";
 
 
 export default function AuthLayout() {
     let { isAuthenticated } = useAuthStore();
 
-    if(isAuthenticated) return <Redirect href="/(tabs)" />
+    if(isAuthenticated) return <Redirect href={ROUTES.tabs} />
     return (
         <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
             <ScrollView className="bg-white h-full" keyboardShouldPersistTaps="handled">

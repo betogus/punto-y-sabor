@@ -13,7 +13,7 @@ import {CartItemType} from "@/type/CartType";
 
 
 
-const CartItem: React.FC<CartItemType> = ({ item }) => {
+const CartItem: React.FC<CartItemType> = ( item ) => {
     const { decreaseQty, increaseQty, removeItem } = useCartStore();
 
     const basePrice = item.price;

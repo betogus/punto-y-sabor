@@ -2,75 +2,78 @@ import { CartCustomization, CartStore } from "@/type";
 import { create } from "zustand";
 import {ComboOption} from "@/type/MenuDetail";
 
-function areCustomizationsEqual(
-    a: CartCustomization[] = [],
-    b: CartCustomization[] = []
+import {CartItemType} from "@/type/CartType";
+
+function areCombosEqual(
+    a: ComboOption[] = [],
+    b: ComboOption[] = [],
 ): boolean {
     if (a.length !== b.length) return false;
 
-    const aSorted = [...a].sort((x, y) => x.id.localeCompare(y.id));
-    const bSorted = [...b].sort((x, y) => x.id.localeCompare(y.id));
+    const aSorted = [...a].sort((x, y) => x.$id.localeCompare(y.$id));
+    const bSorted = [...b].sort((x, y) => x.$id.localeCompare(y.$id));
 
-    return aSorted.every((item, idx) => item.id === bSorted[idx].id);
+    return aSorted.every((item, idx) => item.$id === bSorted[idx].$id);
 }
-
+//TO DO: Generate a unique ID to distinguish items based on their selected combo.
 export const useCartStore = create<CartStore>((set, get) => ({
     items: [],
 
-    addItem: (item) => {
-        const customizations = item.customizations ?? [];
+    addItem: ( item : CartItemType) => {
+        console.log(item)
+        const selectedCombos = item.selectedCombos ?? [];
 
         const existing = get().items.find(
             (i) =>
                 i.id === item.id &&
-                areCustomizationsEqual(i.customizations ?? [], customizations)
+                areCombosEqual(i.selectedCombos ?? [], selectedCombos)
         );
 
         if (existing) {
             set({
                 items: get().items.map((i) =>
                     i.id === item.id &&
-                    areCustomizationsEqual(i.customizations ?? [], customizations)
+                    areCombosEqual(i.selectedCombos ?? [], selectedCombos)
                         ? { ...i, quantity: i.quantity + 1 }
                         : i
                 ),
             });
         } else {
             set({
-                items: [...get().items, { ...item, quantity: 1, customizations }],
+                items: [...get().items, { ...item, quantity: 1, selectedCombos }],
             });
         }
     },
 
-    removeItem: (id, customizations = []) => {
+    removeItem: (id, selectedCombos = []) => {
         set({
             items: get().items.filter(
                 (i) =>
                     !(
                         i.id === id &&
-                        areCustomizationsEqual(i.customizations ?? [], customizations)
+                        areCombosEqual(i.selectedCombos ?? [], selectedCombos)
                     )
             ),
         });
     },
 
-    increaseQty: (id, customizations = []) => {
+    increaseQty: (id, selectedCombos = []) => {
         set({
             items: get().items.map((i) =>
                 i.id === id &&
-                areCustomizationsEqual(i.customizations ?? [], customizations)
+                areCombosEqual(i.selectedCombos ?? [], selectedCombos)
                     ? { ...i, quantity: i.quantity + 1 }
                     : i
             ),
         });
     },
 
-    decreaseQty: (id, customizations = []) => {
+    decreaseQty: (id, selectedCombos = []) => {
         set({
             items: get()
                 .items.map((i) =>
                     i.id === id &&
-                    areCustomizationsEqual(i.customizations ?? [], customizations)
+                    areCombosEqual(i.selectedCombos ?? [], selectedCombos)
                         ? { ...i, quantity: i.quantity - 1 }
                         : i
                 )

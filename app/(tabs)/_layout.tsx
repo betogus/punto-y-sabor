@@ -5,6 +5,7 @@ import {View, Image, Text} from "react-native";
 import {images} from "@/constants"
 import cn from "clsx";
 import {TabBarIconProps} from "@/type";
+import {ROUTES} from "@/src/routes";
 
 
 const TabBarIcon = ({focused, icon, title}: TabBarIconProps) => {
@@ -21,7 +22,7 @@ const TabBarIcon = ({focused, icon, title}: TabBarIconProps) => {
 export default function TabLayout() {
     const {isAuthenticated} = useAuthStore();
 
-    if (!isAuthenticated) return <Redirect href="/sign-in" />
+    if (!isAuthenticated) return <Redirect href={ROUTES.signIn} />
     return <Tabs
         screenOptions={{
             headerShown: false,
@@ -56,10 +57,10 @@ export default function TabLayout() {
                 tabBarIcon: ({focused}) => <TabBarIcon title="Search" icon={images.search} focused={focused}/>
             }}/>
         <Tabs.Screen
-            name='cart'
+            name='order'
             options={{
-                title: 'Cart',
-                tabBarIcon: ({focused}) => <TabBarIcon title="Cart" icon={images.bag} focused={focused}/>
+                title: 'Order',
+                tabBarIcon: ({focused}) => <TabBarIcon title="Order" icon={images.bag} focused={focused}/>
             }}/>
         <Tabs.Screen
             name='profile'
@@ -67,5 +68,6 @@ export default function TabLayout() {
                 title: 'Profile',
                 tabBarIcon: ({focused}) => <TabBarIcon title="Profile" icon={images.person} focused={focused}/>
             }}/>
+        <Tabs.Screen name="cart" options={{ href: null }} />
     </Tabs>
 }

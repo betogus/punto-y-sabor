@@ -10,6 +10,13 @@
     "newArchEnabled": true,
     "ios": {
       "supportsTablet": true,
+      "config": {
+        "googleMapsApiKey": "AIzaSyDq6fQqfhFJBNy4lb6vs7PqB8x-O0PjzUA"
+      },
+      "infoPlist": {
+        "NSLocationWhenInUseUsageDescription": "Esta app necesita tu ubicación para mostrar el progreso del delivery.",
+        "NSLocationAlwaysAndWhenInUseUsageDescription": "Esta app necesita tu ubicación para mostrar el progreso del delivery."
+      },
       "bundleIdentifier": "com.anonymous.puntoysabor"
     },
     "android": {
@@ -18,6 +25,15 @@
         "backgroundColor": "#ffffff"
       },
       "edgeToEdgeEnabled": true,
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyDq6fQqfhFJBNy4lb6vs7PqB8x-O0PjzUA"
+        }
+      },
+      "permissions": [
+        "ACCESS_FINE_LOCATION",
+        "ACCESS_COARSE_LOCATION"
+      ],
       "package": "com.anonymous.puntoysabor"
     },
     "web": {
@@ -42,6 +58,13 @@
           "url": "https://sentry.io/",
           "project": "react-native",
           "organization": "punto-y-sabor"
+        }
+      ],
+      [
+        "expo-maps",
+        {
+          "requestLocationPermission": true,
+          "locationPermission": "Allow $(PRODUCT_NAME) to use your location"
         }
       ]
     ],

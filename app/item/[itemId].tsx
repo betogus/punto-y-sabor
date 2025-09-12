@@ -20,7 +20,8 @@ import {MenuItem} from "@/type";
 import {ComboOption, MenuDetail} from "@/type/MenuDetail";
 import MenuList from "@/components/MenuList";
 import {useCartStore} from "@/store/cart.store";
-import AddToCartModal from "@/components/AddToCartModal"; // Importar el nuevo modal
+import AddToCartModal from "@/components/AddToCartModal";
+import {ROUTES} from "@/src/routes"; // Importar el nuevo modal
 
 const ProductDetail = () => {
     const {itemId} = useLocalSearchParams<{ itemId: string }>();
@@ -103,7 +104,7 @@ const ProductDetail = () => {
     };
 
     const handleRelatedItemPress = (item: MenuItem) => {
-        router.push(`/item/${item.$id}`)
+        router.push(ROUTES.item(item.$id) as any)
     };
 
     const totalPrice = data.price + selectedCombos.reduce((acc, combo) => acc + combo.price, 0);
@@ -119,7 +120,7 @@ const ProductDetail = () => {
             totalPrice: totalPrice * quantity,
             image_url: data.image_url
         };
-
+        console.log(cartItem);
         addItem(cartItem);
         setAddedItem(cartItem);
         setShowModal(true);
@@ -133,7 +134,7 @@ const ProductDetail = () => {
 
     const handleViewCart = () => {
         handleCloseModal();
-        router.push("/cart");
+        router.push(ROUTES.cart);
     };
 
     const handleContinueShopping = () => {

@@ -9,6 +9,8 @@ import CustomButton from "@/components/CustomButton";
 import CartItem from "@/components/CartItem";
 import {Ionicons} from "@expo/vector-icons";
 import colors from "@/assets/themes/colors";
+import {ROUTES} from "@/src/routes";
+import {router} from "expo-router";
 
 const PaymentInfoStripe = ({label, value, labelStyle, valueStyle}: PaymentInfoStripeProps) => (
     <View className="flex-between flex-row my-1">
@@ -65,6 +67,7 @@ const Cart = () => {
             </Text>
 
             <TouchableOpacity
+                onPress={() => router.push(ROUTES.home)}
                 style={{
                     backgroundColor: colors.primary,
                     paddingHorizontal: 32,
@@ -91,7 +94,7 @@ const Cart = () => {
         <SafeAreaView className="bg-white h-full">
             <FlatList
                 data={items}
-                renderItem={({item}) => <CartItem item={item} />}
+                renderItem={({ item }) => <CartItem {...item} />}
                 keyExtractor={(item) => item.id}
                 contentContainerClassName="pb-32 px-5 pt-5"
                 ListHeaderComponent={() => (
@@ -257,6 +260,7 @@ const Cart = () => {
                         </View>
 
                         <CustomButton
+                            onPress={() => {router.push('/delivery-map');}}
                             title={`Ordenar ahora • $${finalTotal.toFixed(2)}`}
 
                         />
