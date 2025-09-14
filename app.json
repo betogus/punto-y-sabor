@@ -11,7 +11,7 @@
     "ios": {
       "supportsTablet": true,
       "config": {
-        "googleMapsApiKey": "AIzaSyDq6fQqfhFJBNy4lb6vs7PqB8x-O0PjzUA"
+        "googleMapsApiKey": "${EXPO_PUBLIC_GOOGLE_MAPS_API_KEY}"
       },
       "infoPlist": {
         "NSLocationWhenInUseUsageDescription": "Esta app necesita tu ubicación para mostrar el progreso del delivery.",
@@ -27,7 +27,7 @@
       "edgeToEdgeEnabled": true,
       "config": {
         "googleMaps": {
-          "apiKey": "AIzaSyDq6fQqfhFJBNy4lb6vs7PqB8x-O0PjzUA"
+          "apiKey": "${EXPO_PUBLIC_GOOGLE_MAPS_API_KEY}"
         }
       },
       "permissions": [

@@ -9,7 +9,7 @@ const CustomHeader = ({ title }: CustomHeaderProps) => {
 
     return (
         <View className="custom-header">
-            <TouchableOpacity onPress={() => router.back()}>
+            <TouchableOpacity style={{position: "absolute", left: 10}} onPress={() => router.back()}>
                 <Image
                     source={images.arrowBack}
                     className="size-5"
@@ -19,7 +19,6 @@ const CustomHeader = ({ title }: CustomHeaderProps) => {
 
             {title && <Text className="base-semibold text-dark-100">{title}</Text>}
 
-            <Image source={images.search} className="size-5" resizeMode="contain" />
         </View>
     );
 };

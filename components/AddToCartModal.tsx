@@ -40,6 +40,8 @@ const AddToCartModal: React.FC<AddToCartModalProps> = ({
 
     React.useEffect(() => {
         if (visible) {
+            scaleAnim.setValue(0);
+            opacityAnim.setValue(0);
             Animated.parallel([
                 Animated.spring(scaleAnim, {
                     toValue: 1,
@@ -50,19 +52,6 @@ const AddToCartModal: React.FC<AddToCartModalProps> = ({
                 Animated.timing(opacityAnim, {
                     toValue: 1,
                     duration: 200,
-                    useNativeDriver: true,
-                }),
-            ]).start();
-        } else {
-            Animated.parallel([
-                Animated.timing(scaleAnim, {
-                    toValue: 0,
-                    duration: 150,
-                    useNativeDriver: true,
-                }),
-                Animated.timing(opacityAnim, {
-                    toValue: 0,
-                    duration: 150,
                     useNativeDriver: true,
                 }),
             ]).start();
