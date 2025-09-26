@@ -42,6 +42,6 @@ export function transformMenuItem(raw: any): MenuDetail {
             image_url: c.image_url ?? null,
             price: c.price,
         })),
-        relatedItemsId: (raw.relatedItems.$id),
+        relatedItemsId: (raw.relatedItems?.$id),
     };
 }

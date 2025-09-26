@@ -7,8 +7,32 @@ import {MenuDetail, transformMenuItem} from "@/type/MenuDetail";
 
 export const getAllMenus = async ({ category, query }: GetMenuParams) => {
     const queries: any[] = [];
-    if (category) queries.push(Query.equal("categories", category));
-    if (query) queries.push(Query.search("name", query));
+
+    // 1. Traer las subcategorías de la categoría seleccionada
+    const subCategories = await databases.listDocuments(
+        appwriteConfig.databaseId,
+        appwriteConfig.subCategoriesCollectionId,
+        [Query.equal("categories", category)]
+    );
+    if (query) queries.push(Query.search("name", query))
+
+    if (!subCategories) {
+        return await databases.listDocuments(
+            appwriteConfig.databaseId,
+            appwriteConfig.menuCollectionId,
+            queries
+        );
+    }
+    const subCategoryIds = subCategories.documents.map((doc) => doc.$id);
+        console.log(subCategories);
+    // 2. Filtros adicionales (ej: search)
+
+    // 3. Buscar menús que tengan esas subcategorías
+    if (subCategoryIds.length > 0) {
+        queries.push(Query.equal("subcategories", subCategoryIds));
+    }
+
+    console.log(queries);
 
     const menus = await databases.listDocuments(
         appwriteConfig.databaseId,
@@ -18,6 +42,7 @@ export const getAllMenus = async ({ category, query }: GetMenuParams) => {
 
     return menus.documents;
 };
+
 
 export const getMenuDetailById = async ({ id }: { id: string }): Promise<MenuDetail | null> => {
     try {

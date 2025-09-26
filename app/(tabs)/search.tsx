@@ -19,8 +19,7 @@ const Search = () => {
     const {data, refetch, loading} = useAppwrite({ fn: getAllMenus, params: { category, query, limit: 6 }})
     const {data: categories}  = useAppwrite({ fn: getCategories })
 
-    const {data: popularItems} = useAppwrite({fn: getMostPopularMenu })
-    const {data: topItems} = useAppwrite({fn: getTopRatedMenu})
+
 
     useEffect(() => {
         refetch({category, query, limit: 6})
@@ -35,8 +34,7 @@ const Search = () => {
             <View className="m-5 gap-5">
             <SearchBar />
             <Filter categories={categories as unknown as Category[]} />
-                <MenuList items={popularItems} title="Los más populares" loading={loading} />
-                <MenuList items={topItems} title="Los más valorados" loading={loading}/>
+                <MenuList items={data} title="Resultados de la búsqueda" loading={loading} />
             </View>
         </SafeAreaView>
 

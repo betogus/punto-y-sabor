@@ -42,11 +42,12 @@ const ProductDetail = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const menu = await getMenuDetailById({id: itemId});
+                const menu : MenuDetail | null = await getMenuDetailById({id: itemId});
                 setData(menu);
                 if (menu?.relatedItemsId) {
-                    const related = await getMenuRelatedById({id: menu.relatedItemsId})
-                    setRelatedItems(related as MenuItem[]);
+                    const related: MenuItem[] = await getMenuRelatedById({ id: menu.relatedItemsId });
+                    const relatedFiltered: MenuItem[] = related.filter((r: MenuItem) => r.$id !== menu.$id);
+                    setRelatedItems(relatedFiltered);
                 }
             } catch (error) {
                 console.error("Error fetching data:", error);
@@ -61,7 +62,6 @@ const ProductDetail = () => {
     if (loading) {
         return <LoadingView message="Cargando producto..." />;
     }
-
     if (!data) {
         return (
             <SafeAreaView className="flex-1 bg-white justify-center items-center">
@@ -382,9 +382,9 @@ const ProductDetail = () => {
                             }}
                         />
                     </View>
-
-                    <MenuList items={relatedItems} loading={relatedItems.length === 0}
-                              title="También te puede interesar"/>
+                    {relatedItems.length > 0 && (<MenuList items={relatedItems} loading={relatedItems.length === 0}
+                                  title="También te puede interesar"/>)
+                    }
                 </View>
             </ScrollView>
 

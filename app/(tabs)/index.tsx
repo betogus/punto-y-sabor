@@ -1,15 +1,21 @@
 import {SafeAreaView} from "react-native-safe-area-context";
-import {Button, FlatList, Image, Pressable, Text, TouchableOpacity, View} from "react-native";
-import {Fragment} from "react";
+import {Button, FlatList, Image, Pressable, ScrollView, Text, TouchableOpacity, View} from "react-native";
+import React, {Fragment} from "react";
 import cn from 'clsx';
 import * as Sentry from '@sentry/react-native';
 import {images, offers} from "@/constants";
 import CartButton from "@/components/CartButton";
 import useAuthStore from "@/store/auth.store";
+import MenuList from "@/components/MenuList";
+import useAppwrite from "@/services/appwrite/useAppwrite";
+import {getMostPopularMenu, getTopRatedMenu} from "@/services/appwrite";
+import LoadingView from "@/components/LoadingView";
 
 export default function Index() {
 
     const {user} = useAuthStore();
+    const {data: popularItems} = useAppwrite({fn: getMostPopularMenu })
+    const {data: topItems} = useAppwrite({fn: getTopRatedMenu})
 
     return (
         <SafeAreaView className="flex-1 bg-white">
@@ -63,6 +69,11 @@ export default function Index() {
                     </View>
                 )}
             />
+            <ScrollView>
+                <MenuList items={popularItems} title="Los más populares" loading={false} />
+                <MenuList items={topItems} title="Los más valorados" loading={false}/>
+            </ScrollView>
+
         </SafeAreaView>
     );
 }

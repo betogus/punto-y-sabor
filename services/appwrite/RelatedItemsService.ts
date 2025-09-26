@@ -6,7 +6,7 @@ interface GetMenuRelatedParams {
     id: string;
 }
 
-export const getMenuRelatedById = async ({ id }: GetMenuRelatedParams): Promise<MenuItem | []> => {
+export const getMenuRelatedById = async ({ id }: GetMenuRelatedParams): Promise<MenuItem[] | []> => {
     try {
         const doc = await databases.getDocument(
             appwriteConfig.databaseId,
