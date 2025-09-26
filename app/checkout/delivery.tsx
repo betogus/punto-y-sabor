@@ -15,20 +15,20 @@ import MapView, { Marker, Polyline } from 'react-native-maps';
 import * as Location from 'expo-location';
 import {router} from "expo-router";
 import {ROUTES} from "@/src/routes";
-import {Ionicons} from "@expo/vector-icons";
 import colors from "@/assets/themes/colors";
 import CustomHeader from "@/components/CustomHeader";
+import {useCartStore} from "@/store/cart.store";
 
 const { width, height } = Dimensions.get('window');
 
 const GOOGLE_API_KEY = process.env.EXPO_PUBLIC_GOOGLE_MAPS_API_KEY; // <-- poné tu API KEY
 
-const DeliveryMap = () => {
+const Delivery = () => {
     const manualPredictions = [
         {index: "CurrentLocation", description: "Obtener mi ubicación actual"},
         {index: "ManualLocation", description: "Marcar en el mapa"}
     ];
-
+    const { setDelivery } = useCartStore();
     const mapRef = useRef<any>(null);
     const [customerLocation, setCustomerLocation] = useState<any>(null);
     const [deliveryLocation, setDeliveryLocation] = useState<any>(null);
@@ -73,6 +73,12 @@ const DeliveryMap = () => {
             setIsLoading(false);
         }
     };
+
+    const handleNextStep = () => {
+        const location = [customerLocation.latitude, customerLocation.longitude];
+        setDelivery(selectedAddress, location, "delivery")
+        router.push(ROUTES.payment)
+    }
 
     // Función para obtener las predicciones a mostrar
     const getPredictionsToShow = () => {
@@ -438,9 +444,9 @@ const DeliveryMap = () => {
             <View style={styles.controls}>
                 <TouchableOpacity
                     disabled={!customerLocation}
-                    onPress={() => router.push('/payment-page')}
+                    onPress={handleNextStep}
                     style={{
-                        backgroundColor: colors.primary,
+                        backgroundColor: !customerLocation ? colors.disabled :  colors.primary,
                         borderRadius: 25,
                         paddingHorizontal: 24,
                         paddingVertical: 14,
@@ -458,7 +464,7 @@ const DeliveryMap = () => {
                     <Text style={{
                         color: "#fff",
                         fontWeight: "700",
-                        fontSize: 16
+                        fontSize: 16,
                     }}>
                         Ir a pagar
                     </Text>
@@ -468,7 +474,7 @@ const DeliveryMap = () => {
     );
     };
 
-export default DeliveryMap
+export default Delivery
 
 const styles = StyleSheet.create({
     container: {

@@ -6,5 +6,8 @@ export const ROUTES = {
     signUp: "/sign-up",
     profile: "/profile",
     cart: "/cart",
+    delivery: "/checkout/delivery",
+    payment: "/checkout/payment",
+    confirm: "/checkout/confirm",
     item: (id: string) => `/item/${id}`
 } as const;

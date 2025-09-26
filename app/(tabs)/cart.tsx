@@ -260,7 +260,7 @@ const Cart = () => {
                         </View>
 
                         <CustomButton
-                            onPress={() => {router.push('/delivery-map');}}
+                            onPress={() => {router.push(ROUTES.delivery);}}
                             title={`Ordenar ahora • $${finalTotal.toFixed(2)}`}
                         />
                     </View>

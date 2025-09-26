@@ -1,8 +1,9 @@
-import { CartCustomization, CartStore } from "@/type";
+import {CartCustomization, CartStore, DeliveryType, PaymentMethod} from "@/type";
 import { create } from "zustand";
 import {ComboOption} from "@/type/MenuDetail";
 
 import {CartItemType} from "@/type/CartType";
+
 
 function areCombosEqual(
     a: ComboOption[] = [],
@@ -18,9 +19,23 @@ function areCombosEqual(
 //TO DO: Generate a unique ID to distinguish items based on their selected combo.
 export const useCartStore = create<CartStore>((set, get) => ({
     items: [],
+    address: "",
+    location:[0,0],
+    paymentMethod: "cash",
+    deliveryType: "delivery",
+    comment: "",
+    setPaymentMethod: (customerPaymentMethod: PaymentMethod) => {set({paymentMethod: customerPaymentMethod})},
+    setDelivery: (customerAddress: string, customerLocation: number[], deliveryType: DeliveryType) => {
+        set({
+            address: customerAddress,
+            location: customerLocation,
+            deliveryType: deliveryType
+        })
 
+        console.log(get().address)
+        console.log(get().location)
+    },
     addItem: ( item : CartItemType) => {
-        console.log(item)
         const selectedCombos = item.selectedCombos ?? [];
 
         const existing = get().items.find(

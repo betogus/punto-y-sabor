@@ -9,6 +9,8 @@ export const appwriteConfig = {
     userCollectionId: "689e6c7b0033221c1ec4",
     categoriesCollectionId: "68a6598c002b7acbf941",
     menuCollectionId: "68a65b8a001ff59a7976",
+    orderCollectionId: "orders",
+    orderItemsCollectionId: "order_items",
     customizationsCollectionId: "68a65de2001c8ddef094",
     menuCustomizationCollectionId: "68a65e7f001a1748ee15",
     subCategoriesCollectionId: "68acbc84002725207b84",

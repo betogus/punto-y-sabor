@@ -18,9 +18,13 @@ export interface Category extends Models.Document {
 }
 
 export interface User extends Models.Document {
+    $id?: string;
     name: string;
     email: string;
     avatar: string;
+    phone: number;
+    address: string;
+    location: string;
 }
 
 export interface CartCustomization {
@@ -30,9 +34,64 @@ export interface CartCustomization {
     type: string;
 }
 
+export type PaymentMethod = "card" | "cash" | "qr";
+
+export const PAYMENT_METHODS = {
+    CARD: "card" as PaymentMethod,
+    CASH: "cash" as PaymentMethod,
+    QR: "qr" as PaymentMethod,
+};
+
+export type DeliveryType = "delivery" | "pickup"
+
+export const DELIVERY_TYPE = {
+    DELIVERY: "delivery" as DeliveryType,
+    PICKUP: "pickup" as DeliveryType
+}
+
+export interface OrderItem {
+    $id?: string;
+    name: string;
+    menuId: string;
+    quantity: number;
+}
+
+export type OrderStatus = "pending" | "preparing" | "delivering" | "cancelled"
+export interface OrderDetail {
+    $id?: string;
+    userId?: string;
+    totalPrice: number;
+    status: OrderStatus;
+    deliveryType?: DeliveryType;
+    deliveryAddress?: string;
+    deliveryTime?: float;
+    paymentMethod: PaymentMethod;
+    orderItems: OrderItem[];
+    comment: string;
+    deliveryLocation: number[];
+}
+export interface Order  {
+    $id?: string;
+    userId?: string;
+    totalPrice: number;
+    status: OrderStatus;
+    deliveryType?: DeliveryType;
+    deliveryAddress?: string;
+    deliveryTime?: float;
+    paymentMethod: PaymentMethod;
+    orderItems: string[];
+    comment: string;
+    deliveryLocation: number[];
+}
 
 export interface CartStore {
-    items: CartItem[];
+    setDelivery: (address: string, location: number[], deliveryType: DeliveryType) => void;
+    paymentMethod: string;
+    deliveryType: DeliveryType;
+    setPaymentMethod: (paymentMethod: PaymentMethod) => void;
+    address: string;
+    location: number[];
+    items: CartItemType[];
     addItem: (item: CartItemType) => void;
     removeItem: (id: string, selectedCombos: ComboOption[]) => void;
     increaseQty: (id: string, selectedCombos: ComboOption[]) => void;
@@ -40,6 +99,7 @@ export interface CartStore {
     clearCart: () => void;
     getTotalItems: () => number;
     getTotalPrice: () => number;
+    comment: string;
 }
 
 interface TabBarIconProps {

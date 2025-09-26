@@ -1,23 +1,21 @@
 import React, {useState} from 'react';
-import {
-    View,
-    Text,
-    TextInput,
-    TouchableOpacity,
-    StyleSheet,
-    ScrollView,
-    Alert,
-    Modal
-} from 'react-native';
+import {Alert, Modal, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View} from 'react-native';
 import {Picker} from '@react-native-picker/picker';
 import {useCartStore} from "@/store/cart.store";
 import {SafeAreaView} from "react-native-safe-area-context";
 import CustomHeader from "@/components/CustomHeader";
+import {saveOrder} from "@/services/appwrite/OrderService";
+import {router} from "expo-router";
+import {ROUTES} from "@/src/routes";
+import {DeliveryType, Order, OrderStatus, PaymentMethod} from "@/type";
+import {items} from "@sentry/react-native/dist/js/utils/envelope";
+import useAuthStore from "@/store/auth.store";
 
-const PaymentSimulation = () => {
-    const {items: cartItems, getTotalPrice} = useCartStore();
+const Payment = () => {
+    const {items: cartItems, getTotalPrice, deliveryType, address, location, comment } = useCartStore();
+    const {user} = useAuthStore();
     const totalAmount = getTotalPrice();
-    const [paymentMethod, setPaymentMethod] = useState('card');
+    const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>("cash");
     const [cardData, setCardData] = useState({
         number: '',
         expiryDate: '',
@@ -71,7 +69,7 @@ const PaymentSimulation = () => {
     };
 
     // Procesar pago
-    const handlePayment = async () => {
+    const handlePayment =  () => {
         setProcessing(true);
 
         try {
@@ -79,6 +77,22 @@ const PaymentSimulation = () => {
                 setProcessing(false);
                 return;
             }
+
+            let order: Order = {
+                totalPrice: getTotalPrice(),
+                status: "pending",
+                deliveryType,
+                deliveryAddress: address,
+                paymentMethod,
+                comment,
+                deliveryLocation: location,
+                orderItems: [],
+                userId: user?.$id
+            }
+            console.log(order);
+            saveOrder(cartItems, order).then(r => router.push(ROUTES.confirm));
+
+/*
 
             // Simular procesamiento de pago (2 segundos)
             await new Promise(resolve => setTimeout(resolve, 2000));
@@ -102,7 +116,7 @@ const PaymentSimulation = () => {
                 );
             } else {
                 Alert.alert('Error de Pago', 'No se pudo procesar el pago. Intenta nuevamente.');
-            }
+            }*/
         } catch (error) {
             Alert.alert('Error', 'Error inesperado al procesar el pago');
         } finally {
@@ -483,4 +497,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default PaymentSimulation;
+export default Payment;

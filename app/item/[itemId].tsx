@@ -21,7 +21,8 @@ import {ComboOption, MenuDetail} from "@/type/MenuDetail";
 import MenuList from "@/components/MenuList";
 import {useCartStore} from "@/store/cart.store";
 import AddToCartModal from "@/components/AddToCartModal";
-import {ROUTES} from "@/src/routes"; // Importar el nuevo modal
+import {ROUTES} from "@/src/routes";
+import LoadingView from "@/components/LoadingView"; // Importar el nuevo modal
 
 const ProductDetail = () => {
     const {itemId} = useLocalSearchParams<{ itemId: string }>();
@@ -58,12 +59,7 @@ const ProductDetail = () => {
     }, [itemId]);
 
     if (loading) {
-        return (
-            <SafeAreaView className="flex-1 bg-white justify-center items-center">
-                <ActivityIndicator size="large" color={colors.primary}/>
-                <Text style={{marginTop: 16, fontSize: 16, color: "#666"}}>Cargando producto...</Text>
-            </SafeAreaView>
-        );
+        return <LoadingView message="Cargando producto..." />;
     }
 
     if (!data) {

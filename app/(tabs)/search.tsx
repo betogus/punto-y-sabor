@@ -12,6 +12,7 @@ import Filter from "@/components/Filter";
 import SearchBar from "@/components/SearchBar";
 import {getAllMenus, getCategories, getMostPopularMenu, getTopRatedMenu} from "@/services/appwrite";
 import MenuList from "@/components/MenuList";
+import LoadingView from "@/components/LoadingView";
 
 const Search = () => {
     const {category, query} = useLocalSearchParams<{query: string, category: string}>()
@@ -24,6 +25,10 @@ const Search = () => {
     useEffect(() => {
         refetch({category, query, limit: 6})
     }, [category, query])
+
+    if (loading) {
+        return <LoadingView message="Cargando productos..." />;
+    }
 
     return (
         <SafeAreaView className="bg-white h-full">
